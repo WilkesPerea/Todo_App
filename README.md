@@ -1,46 +1,82 @@
-# Astro Starter Kit: Basics
+# VR Cafe TodoList
 
-```sh
-npm create astro@latest -- --template basics
-```
+Een moderne Todo-app gebouwd met Astro en React, inclusief dark mode, categoriefilters, lokaal opgeslagen taken en vloeiende animaties.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+<details>
+  <summary>Inhoud</summary>
+  <ol>
+    <li><a href="#about-the-project">Over dit project</a></li>
+    <li><a href="#features">Functies</a></li>
+    <li><a href="#built-with">Gebouwd met</a></li>
+    <li><a href="#getting-started">Aan de slag</a></li>
+    <li><a href="#usage">Gebruik</a></li>
+  </ol>
+</details>
 
-## 🚀 Project Structure
+## Over dit project
 
-Inside of your Astro project, you'll see the following folders and files:
+Dit project is een Todo-lijstapplicatie gebouwd met Astro en React. Het bevat:
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+- een responsieve interface met Tailwind CSS
+- vloeiende lijstanimaties met `@formkit/auto-animate`
+- categorie-filters voor `Werk`, `School` en `Prive`
+- taken die lokaal worden opgeslagen met `localStorage`
+- dark mode ondersteuning met voorkeur opgeslagen in `localStorage`
+- een thema-schakelaar in de footer
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Functies
 
-## 🧞 Commands
+- Todo's toevoegen en verwijderen
+- Todo's markeren als gedaan / ongedaan
+- Filteren op categorie of alles tonen
+- Gescheiden secties voor actieve en voltooide taken
+- Soepele lijstanimaties bij toevoegen, verwijderen en verplaatsen
+- Dark mode die rekening houdt met opgeslagen voorkeur en systeemkleurenschema
 
-All commands are run from the root of the project, from a terminal:
+## Gebouwd met
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- [Astro](https://astro.build/)
+- [React](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [@formkit/auto-animate](https://auto-animate.formkit.com/)
+- [React Icons](https://react-icons.github.io/react-icons/)
 
-## 👀 Want to learn more?
+## Aan de slag
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### Vereisten
+
+Zorg dat Node.js is geïnstalleerd (bij voorkeur Node 22+).
+
+### Installatie
+
+1. clone de repository:
+   ```sh
+   git clone https://github.com/your-username/your-repo.git
+   cd Todo_App
+   ```
+2. Installeer de dependencies:
+   ```sh
+   npm install
+   ```
+3. Start de development server:
+   ```sh
+   npm run dev
+   ```
+4. Open de lokale URL die in de terminal verschijnt.
+
+## Gebruik
+
+- Gebruik de plusknop om een nieuwe todo toe te voegen
+- Kies een categorie en voer de taaktekst in
+- Zet het vinkje aan om een taak als voltooid te markeren
+- Verwijder taken met het prullenbak-icoon
+- Wissel van theme met de knop in de footer
+- De themavoorkeur wordt automatisch opgeslagen in `localStorage`
+
+## Aantekeningen
+
+- De app start standaard in dark mode als er geen gebruikersvoorkeur is opgeslagen
+- Als er geen opgeslagen voorkeur is, volgt de app het systeemkleurenschema via `window.matchMedia("(prefers-color-scheme: dark)")`
+- Todo's worden lokaal opgeslagen in de browser en blijven bewaard na opnieuw laden
+
+<p align="right">(<a href="#vr-cafe-todolist">terug naar boven</a>)</p>
