@@ -1,0 +1,120 @@
+---
+import astroLogo from "../assets/logo.webp";
+---
+
+<header class="flex items-center justify-center">
+  <nav
+    class="bg-purple-800 text-2xl fixed lg:w-[80vw] w-full z-20 top-0 border-none rounded-b-3xl"
+  >
+    <div class="w-full flex flex-wrap items-center justify-between p-4">
+      <div>
+        <a href="/" class="">
+          <img
+            src={astroLogo.src}
+            alt="VR Cafe Logo"
+            class="absolute w-32 h-16 z-10 top-5"
+          />
+        </a>
+      </div>
+
+      <button
+        data-collapse-toggle="navbar-cta"
+        id="hamburger"
+        type="button"
+        class="inline-flex items-center p-2 ml-3 w-12 h-12 justify-center text-sm text-body rounded-base md:hidden"
+        aria-controls="navbar-cta"
+        aria-expanded="false"
+      >
+        <svg
+          class="w-10 h-10"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-width="2"
+            d="M5 7h14M5 12h14M5 17h14"></path>
+        </svg>
+      </button>
+
+      <div
+        class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+        id="navbarExtend"
+      >
+        <ul
+          class="flex rounded-xl flex-row justify-around pt-1 md:p-0 mt-8 font-medium rounded-base bg-transparent md:space-x-8 md:flex-row md:mt-0"
+        >
+          <li class="hover:text-purple-400 rounded">
+            <a
+              href="#"
+              data-filter="all"
+              class="text-xs lg:text-xl py-2 px-3 rounded hover:text-purple-400 hover:scale-110 transition duration-700 ease-in-out"
+              >all</a
+            >
+          </li>
+          <li class="hover:text-purple-400 rounded">
+            <a
+              href="#"
+              data-filter="werk"
+              aria-label="Filter Todo on Werk"
+              class="text-xs lg:text-xl py-2 px-3 rounded hover:text-purple-400 hover:scale-110 transition duration-700 ease-in-out"
+              >Werk</a
+            >
+          </li>
+          <li class="hover:text-purple-400 rounded">
+            <a
+              href="#"
+              aria-label="Filter Todo on School"
+              data-filter="school"
+              class="text-xs lg:text-xl py-2 px-3 rounded hover:text-purple-400 hover:scale-110 transition duration-700 ease-in-out"
+              >School</a
+            >
+          </li>
+          <li class="hover:text-purple-400 rounded">
+            <a
+              href="#"
+              aria-label="Filter Todo on Prive"
+              data-filter="prive"
+              class="text-xs lg:text-xl py-2 px-3 rounded hover:text-purple-400 hover:scale-110 transition duration-700 ease-in-out"
+              >Prive</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  // Keep the JavaScript logic for the hamburger menu
+  function navbarExtend() {
+    console.log("Navbar toggle triggered");
+    // Get the element using its ID since it's now in the static DOM
+    const navbar = document.getElementById("navbarExtend");
+    if (!navbar) return;
+    navbar.classList.toggle("hidden");
+  }
+
+  // Attach event listener to the element now present in the static DOM
+  document.addEventListener("DOMContentLoaded", () => {
+    const hamburger = document.getElementById("hamburger");
+    if (hamburger) {
+      hamburger.addEventListener("click", navbarExtend);
+    }
+
+    document
+      .querySelectorAll<HTMLAnchorElement>("[data-filter]")
+      .forEach((link) => {
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          const filter = link.dataset.filter || "all";
+          window.dispatchEvent(
+            new CustomEvent("todoFilter", { detail: filter }),
+          );
+        });
+      });
+  });
+</script>

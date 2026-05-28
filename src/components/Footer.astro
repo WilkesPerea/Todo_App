@@ -1,0 +1,74 @@
+---
+
+---
+
+<footer
+  class="flex flex-col sm:flex-row justify-center items-center p-4 gap-5 sm:gap-2 w-full bg-gray-900 border-t-2"
+>
+  <p>© 2019/2026 – VRcafe Haarlem – KVK 58448578 – BTW NL001584419B78</p>
+
+  <label class="inline-flex items-center cursor-pointer">
+    <svg
+      class="w-5 h-5 text-body"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      ><path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.95 4.95l-1.41-1.41M7.46 7.46L6.05 6.05m12.91 0l-1.41 1.41M7.46 16.54l-1.41 1.41"
+      ></path>
+    </svg>
+    <input id="theme-toggle" type="checkbox" class="sr-only peer" />
+    <div
+      class="relative mx-3 w-9 h-5 bg-neutral-quaternary border border-white/20 dark:border-slate-500/50 ring ring-white/10 dark:ring-slate-500/20 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand-soft dark:peer-focus:ring-brand-soft rounded-full peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-buffer after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-brand"
+    >
+    </div>
+    <svg
+      class="w-5 h-5 text-body"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      ><path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path>
+    </svg>
+  </label>
+</footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("theme-toggle");
+    const storedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    const theme =
+      storedTheme === "light" || storedTheme === "dark"
+        ? storedTheme
+        : prefersDark
+          ? "dark"
+          : "light";
+
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    if (toggle && toggle instanceof HTMLInputElement) {
+      toggle.checked = theme === "dark";
+      toggle.addEventListener("change", () => {
+        const newTheme = toggle.checked ? "dark" : "light";
+        document.documentElement.classList.toggle("dark", newTheme === "dark");
+        localStorage.setItem("theme", newTheme);
+      });
+    }
+  });
+</script>
