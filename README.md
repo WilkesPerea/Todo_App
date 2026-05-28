@@ -78,5 +78,6 @@ Zorg dat Node.js is geïnstalleerd (bij voorkeur Node 22+).
 - De app start standaard in dark mode als er geen gebruikersvoorkeur is opgeslagen
 - Als er geen opgeslagen voorkeur is, volgt de app het systeemkleurenschema via `window.matchMedia("(prefers-color-scheme: dark)")`
 - Todo's worden lokaal opgeslagen in de browser en blijven bewaard na opnieuw laden
+- Ik heb aria‑labels toegevoegd zodat de website beter toegankelijk is voor alle gebruikers
 
 <p align="right">(<a href="#vr-cafe-todolist">terug naar boven</a>)</p>
