@@ -59,7 +59,8 @@ h3,
 h4,
 h5,
 h6,
-a {
+a,
+select {
   font-family: var(--font-subheading);
   font-weight: var(--font-subheading-weight);
   text-transform: uppercase;
@@ -69,9 +70,9 @@ p,
 label,
 input,
 textarea,
-select,
 td,
-li {
+li,
+option {
   font-family: var(--font-body);
   color: var(--text);
 }

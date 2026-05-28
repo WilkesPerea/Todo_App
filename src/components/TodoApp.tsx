@@ -177,7 +177,7 @@ function Todolist() {
             </div>
 
             <TodoSection
-                title="Todo List"
+                title="Todo Lijst"
                 todos={todos
                     .filter((todo) => !todo.done)
                     .filter((todo) => filter === "all" || todo.type === filter)}

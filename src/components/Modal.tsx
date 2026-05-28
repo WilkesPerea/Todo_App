@@ -57,10 +57,10 @@ function Modal({
             }`}
             onClick={(event) => event.stopPropagation()}
             >
-            <h2 className="text-xl font-bold mb-4 p-2 rounded">Add New Todo</h2>
+            <h2 className="text-xl font-bold mb-4 p-2 rounded">Voeg een nieuwe Todo toe</h2>
             <div className="flex flex-col gap-3">
                 <label htmlFor="todo-category" className="text-sm font-medium">
-                Category
+                Categorie
                 </label>
                 <select
                 id="todo-category"
@@ -68,13 +68,13 @@ function Modal({
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="border border-gray-700 rounded-lg px-3 py-2"
                 >
-                <option value="">Select category</option>
+                <option value="">Selecteer categorie</option>
                 <option value="werk">Werk</option>
                 <option value="school">School</option>
                 <option value="prive">Prive</option>
                 </select>
                 <label htmlFor="todo-text" className="text-sm font-medium">
-                Todo description
+                Todo omschrijving
                 </label>
                 <input
                 id="todo-text"
@@ -82,7 +82,7 @@ function Modal({
                 value={newTodoText}
                 onChange={(e) => setNewTodoText(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && onAdd()}
-                placeholder="Enter a new todo..."
+                placeholder="Typ hier..."
                 className="w-full placeholder:text-gray-500 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
             </div>
