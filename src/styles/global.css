@@ -47,7 +47,9 @@ span {
 
 h1,
 h2,
-th {
+th,
+select,
+.modalBg {
   font-family: var(--font-heading);
   font-weight: var(--font-heading-weight);
   text-transform: uppercase;
@@ -59,11 +61,14 @@ h3,
 h4,
 h5,
 h6,
-a,
-select {
+a {
   font-family: var(--font-subheading);
   font-weight: var(--font-subheading-weight);
   text-transform: uppercase;
+}
+
+li {
+  border-color: var(--border);
 }
 
 p,

@@ -3,11 +3,13 @@ import { FaPlus, FaTrash } from "react-icons/fa";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import Modal from "./Modal";
 
+type TodoType = "werk" | "school" | "prive";
+
 interface Todo {
     id: number;
     text: string;
     done: boolean;
-    type: string;
+    type: TodoType;
 }
 
 interface TodoItemProps {
@@ -18,8 +20,14 @@ interface TodoItemProps {
 }
 
 function TodoItem({ todo, isCompleted, onToggleDone, onRemoveTodo }: TodoItemProps) {
+    const typeClasses: Record<TodoType, string> = {
+        werk: "!bg-blue-100 text-blue-900",
+        school: "!bg-yellow-100 text-yellow-900",
+        prive: "!bg-pink-100 text-pink-900",
+    };
+
     return (
-        <li className="p-4 rounded-lg flex justify-between items-center">
+        <li className="p-4 flex justify-between items-center border-b-2">
             <div className="flex items-center gap-2">
                 <input
                     type="checkbox"
@@ -29,9 +37,13 @@ function TodoItem({ todo, isCompleted, onToggleDone, onRemoveTodo }: TodoItemPro
                     onChange={() => onToggleDone(todo.id)}
                 />
                 <span className={isCompleted ? "line-through" : ""}>{todo.text}</span>
+                {todo.type && (
+                    <span className={`text-sm px-2 py-1 rounded-full ${typeClasses[todo.type]}`}>
+                        {todo.type}
+                    </span>
+                )}
             </div>
             <div className="flex items-center gap-2">
-                {todo.type && <span className="text-sm px-2 py-1 rounded">{todo.type}</span>}
                 <button
                     aria-label="Remove Todo"
                     className="text-red-500 hover:text-red-700 hover:scale-105"
@@ -56,20 +68,22 @@ interface TodoSectionProps {
 function TodoSection({ title, todos, onToggleDone, onRemoveTodo, parentRef, isCompleted }: TodoSectionProps) {
     return (
         <>
-            <h2 className="text-2xl flex justify-between items-center p-4 w-full rounded-2xl">
-                {title}
-            </h2>
-            <ul ref={parentRef} className="space-y-2">
-                {todos.map((todo) => (
-                    <TodoItem
-                        key={todo.id}
-                        todo={todo}
-                        isCompleted={isCompleted}
-                        onToggleDone={onToggleDone}
-                        onRemoveTodo={onRemoveTodo}
-                    />
-                ))}
-            </ul>
+            <div className="flex flex-col p-4 w-full rounded-2xl">
+                <h2 className="text-2xl flex items-center p-4 w-full rounded-2xl">
+                    {title}
+                </h2>
+                <ul ref={parentRef} className="space-y-2">
+                    {todos.map((todo) => (
+                        <TodoItem
+                            key={todo.id}
+                            todo={todo}
+                            isCompleted={isCompleted}
+                            onToggleDone={onToggleDone}
+                            onRemoveTodo={onRemoveTodo}
+                        />
+                    ))}
+                </ul>
+            </div>
         </>
     );
 }
@@ -79,29 +93,28 @@ function Todolist() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newTodoText, setNewTodoText] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
+    const [hasError, setHasError] = useState(false);
     const [undoneParent] = useAutoAnimate<HTMLUListElement>();
     const [doneParent] = useAutoAnimate<HTMLUListElement>();
     const [filter, setFilter] = useState<"all" | "werk" | "school" | "prive">("all");
 
     useEffect(() => {
-        // Load from localStorage first
         const stored = localStorage.getItem("todos");
         if (stored) {
             try {
                 setTodos(JSON.parse(stored));
                 return;
             } catch (err) {
-                // fallback to defaults if localStorage is corrupted
+                console.error("Failed to parse todos from localStorage:", err);
             }
         }
 
-        // Seed with default todos if nothing in localStorage
         const fetchedTodos = [
             { id: 1, text: "Buy groceries", done: true, type: "prive" },
             { id: 2, text: "Finish project", done: false, type: "werk" },
             { id: 3, text: "Call mom", done: false, type: "prive" },
         ];
-        setTodos(fetchedTodos);
+        setTodos(fetchedTodos as Todo[]);
         localStorage.setItem("todos", JSON.stringify(fetchedTodos));
     }, []);
 
@@ -118,7 +131,7 @@ function Todolist() {
 
     const handleAddTodo = () => {
         if (!newTodoText.trim() || !selectedCategory) {
-            alert("Please fill in both fields");
+            setHasError(true);
             return;
         }
 
@@ -139,6 +152,11 @@ function Todolist() {
         setIsModalOpen(false);
     };
 
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setHasError(false);
+    };
+
     const handleRemoveTodo = (id: number) => {
         const updatedTodos = todos.filter((todo) => todo.id !== id);
         setTodos(updatedTodos);
@@ -154,7 +172,7 @@ function Todolist() {
     }
 
     return (
-        <div>
+        <div className="flex flex-col md:flex-row w-full justify-start">
             <div className="fixed bottom-5 right-5 z-50">
                 <button
                     type="button"
@@ -167,12 +185,14 @@ function Todolist() {
 
                 <Modal
                     isOpen={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
+                    onClose={handleCloseModal}
                     onAdd={handleAddTodo}
                     selectedCategory={selectedCategory}
                     setSelectedCategory={setSelectedCategory}
                     newTodoText={newTodoText}
                     setNewTodoText={setNewTodoText}
+                    hasError={hasError}
+                    setHasError={setHasError}
                 />
             </div>
 
