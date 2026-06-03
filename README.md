@@ -51,7 +51,7 @@ Zorg dat Node.js is geïnstalleerd (bij voorkeur Node 22+).
 
 1. clone de repository:
    ```sh
-   git clone https://github.com/your-username/your-repo.git
+   git clone
    cd Todo_App
    ```
 2. Installeer de dependencies:
